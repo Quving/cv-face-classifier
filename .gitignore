@@ -1,17 +1,27 @@
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+
 # Costumize ignores
 data/original_samples
 data/train
 data/validation
 data/test
-use-vgg16/bottleneck_features
-use-vgg16/models
-use-vgg16/class_indices
-use-vgg16/training
-from-scratch/bottleneck_features
-from-scratch/models
-from-scratch/class_indices
-from-scratch/training
-
+cnn/bottleneck_features
+cnn/models
+cnn/class_indices
+cnn/training
 
 **.jpg
 **.png
