@@ -1,8 +1,23 @@
 # Costumize ignores
-data/Makefile
-classifier/bottleneck_features
-classifier/class_indices
-classifier/models
+data/original_samples
+data/train
+data/validation
+data/test
+use-vgg16/bottleneck_features
+use-vgg16/models
+use-vgg16/class_indices
+use-vgg16/training
+from-scratch/bottleneck_features
+from-scratch/models
+from-scratch/class_indices
+from-scratch/training
+
+
+**.jpg
+**.png
+**.zip
+**.npy
+**.h5p
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
