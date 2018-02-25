@@ -20,9 +20,9 @@ img_width, img_height = 224, 224
 # set paths
 train_data_dir = '../data/train'
 validation_data_dir = '../data/validation'
-top_model_path = 'models/top_model_17_classes'
-history_path = 'training/training_history_17_classes.json'
-class_indices_path = 'class_indices/class_indices_17_classes.npy'
+top_model_path = 'models/top_model_2_classes'
+history_path = 'training/training_history_2_classes.json'
+class_indices_path = 'class_indices/class_indices_2_classes.npy'
 bottleneck_features_train_samples = 'bottleneck_features/bottleneck_features_train_samples.npy'
 bottleneck_features_validation_samples = 'bottleneck_features/bottleneck_features_validation_samples.npy'
 
