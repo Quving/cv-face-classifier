@@ -23,8 +23,8 @@ model_classifier = None
 class_dictionary = None
 label_dictionary = None
 
-top_model_path = 'models/top_model_17_classes'
-class_indices_path = 'class_indices/class_indices_17_classes.npy'
+top_model_path = 'models/top_model_2_classes'
+class_indices_path = 'class_indices/class_indices_2_classes.npy'
 
 # Return model ready to classify images.
 def getModelClassifier():
@@ -109,21 +109,8 @@ def test(directory, expected_prediction):
     return correct_predictions/len(files)*100
 
 def test_predictions():
-    print "Accuracy",test("../data/test/redcuboidtiny", "redcuboidtiny")
-    print "Accuracy",test("../data/test/bluebridge", "bluebridge")
-    print "Accuracy",test("../data/test/bluecylindertiny", "bluecylindertiny")
-    print "Accuracy",test("../data/test/yellowcylindertall", "yellowcylindertall")
-    print "Accuracy",test("../data/test/greencuboidtall", "greencuboidtall")
-    print "Accuracy",test("../data/test/humanhand", "humanhand")
-    print "Accuracy",test("../data/test/ur5part", "ur5part")
-    print "Accuracy",test("../data/test/ur5arm", "ur5arm")
-    print "Accuracy",test("../data/test/tableedgeshort", "tableedgeshort")
-    print "Accuracy",test("../data/test/tableedgelong", "tableedgelong")
-    print "Accuracy",test("../data/test/apriltag", "apriltag")
-    print "Accuracy",test("../data/test/blanktable", "blanktable")
-    print "Accuracy",test("../data/test/ur5joint", "ur5joint")
-    print "Accuracy",test("../data/test/apriltagtabletop", "apriltagtabletop")
-    print "Accuracy",test("../data/test/ur5label", "ur5label")
+    print "Accuracy",test("../data/test/chris", "chris")
+    print "Accuracy",test("../data/test/vinh", "vinh")
 
 if __name__ == '__main__':
     initialize()

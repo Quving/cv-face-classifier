@@ -145,7 +145,7 @@ def train_top_model():
 
     # Persist history and model.
     save_history(history, history_path)
-    plot_loss(history)
+    # plot_loss(history)
     save_model(model, top_model_path)
 
     (eval_loss, eval_accuracy) = model.evaluate(
@@ -195,5 +195,5 @@ def create_top_model(shape, num_classes):
 if __name__ == "__main__":
     save_bottlebeck_features()
     train_top_model()
-    history = pickle.load( open(history_path,"rb"))
-    plot_loss(history)
+    # history = pickle.load( open(history_path,"rb"))
+    # plot_loss(history)
