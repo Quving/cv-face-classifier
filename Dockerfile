@@ -13,4 +13,7 @@ RUN wget -O models.zip http://nextcloud.quving.com/s/ktXiwxgiAgxrA2L/download &&
 
 RUN pip install -r requirements.txt
 
+RUN printf "import keras\nkeras.applications.VGG16(include_top=False, weights='imagenet')" >> dl_vgg16.py
+RUN python dl_vgg16.py
+
 CMD ["python", "letsfaceit.py"]
