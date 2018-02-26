@@ -1,0 +1,10 @@
+pipeline:
+  publish:
+    image: plugins/docker
+    privileged: true
+    repo: pingu/letsfaceit
+    tags: latest
+    secrets: [ docker_username, docker_password ]
+    when:
+      status: [ success ]
+      branch: [ master ]

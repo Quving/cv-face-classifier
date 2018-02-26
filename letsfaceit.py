@@ -26,8 +26,8 @@ model_classifier = None
 class_dictionary = None
 label_dictionary = None
 app = Flask(__name__)
-top_model_path = 'models/top_model_2_classes'
-class_indices_path = 'class_indices/class_indices_2_classes.npy'
+top_model_path = 'cnn/models/top_model_2_classes'
+class_indices_path = 'cnn/class_indices/class_indices_2_classes.npy'
 
 # Initialize variables used for prediction.
 def initialize():
