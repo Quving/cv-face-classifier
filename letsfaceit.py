@@ -79,21 +79,22 @@ def predict_image(np_image):
 
 # Load model structure and its weights.
 def load_model(filename):
-    print "Load model from", filename
     with open(filename + '.json', 'r') as file:
         model = model_from_json(file.read())
         file.close()
 
     model.load_weights(filename + '.h5')
     return model
+
 @app.route('/api/predict', methods=['POST'])
 def get_label():
     json = request.json
-    if "location" in json.keys():
-        return jsonify(crawler_weather.request_weather(json["location"]))
-    else:
-        return jsonify({"error": "data object must contain 'location'."})
+    if json is None:
+        return jsonify({"error": "Where is the request data?"})
 
+    for key in ["image", "mode"]:
+        if not key in json.keys():
+            return jsonify({"error": "I think you've missed the key '" + key + "'"})
 
 if __name__ == '__main__':
     initialize()
