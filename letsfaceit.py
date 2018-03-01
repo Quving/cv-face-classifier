@@ -73,7 +73,7 @@ def predict_image(np_image):
         inID = class_predicted[0]
         inv_map = {v: k for k, v in class_dictionary.items()}
         label = inv_map[inID]
-        rospy.logerr("Image ID: {}, Label: {}".format(inID, label))
+        print("Image ID: {}, Label: {}".format(inID, label))
 
         return {"classname": label, "probability": class_predicted_proba}
 
@@ -88,13 +88,24 @@ def load_model(filename):
 
 @app.route('/api/predict', methods=['POST'])
 def get_label():
-    json = request.json
-    if json is None:
+    post= request.json
+    if post is None:
         return jsonify({"error": "Where is the request data?"})
 
     for key in ["image", "mode"]:
-        if not key in json.keys():
+        if not key in post.keys():
             return jsonify({"error": "I think you've missed the key '" + key + "'"})
+    image_np = np.array(json.loads(post["image"]))
+    print len(image_np)
+    cv2.imwrite("tmp.jpg", image_np)
+    np_image = load_img("tmp.jpg", target_size=(224, 224))
+    np_image = img_to_array(np_image)
+    np_image = np_image / 255.0
+    np_image = np.expand_dims(np_image, axis=0)
+    actual_prediction = predict_image(np_image)
+    print actual_prediction
+
+    return jsonify({"label": actual_prediction["classname"]})
 
 if __name__ == '__main__':
     initialize()
