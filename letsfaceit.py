@@ -105,7 +105,7 @@ def get_label():
     actual_prediction = predict_image(np_image)
     print actual_prediction
 
-    return jsonify({"label": actual_prediction["classname"]})
+    return jsonify({"label": actual_prediction["classname"], "probability": str(actual_prediction["probability"])})
 
 if __name__ == '__main__':
     initialize()
