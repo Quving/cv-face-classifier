@@ -6,6 +6,7 @@ WORKDIR /workdir
 
 COPY requirements.txt requirements.txt
 COPY letsfaceit.py letsfaceit.py
+COPY start.sh start.sh
 
 RUN mkdir cnn
 RUN wget -O class_indices.zip http://nextcloud.quving.com/s/GkdP5QoaPJpEs2d/download && unzip class_indices.zip -d cnn
