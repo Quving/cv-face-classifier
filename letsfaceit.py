@@ -35,9 +35,11 @@ def initialize():
     global model_classifier
     global model_bottleneck
     global class_dictionary
+    global class_dictionary_swapped
     model_bottleneck = getModelBottleneck()
     model_classifier = getModelClassifier()
     class_dictionary = np.load(class_indices_path).item()
+    class_dictionary_swapped = dict((v,k) for k,v in class_dictionary.iteritems())
 
 # Return model ready to classify images.
 def getModelClassifier():
@@ -57,6 +59,12 @@ def getModelBottleneck():
     graph = tf.get_default_graph()
     return model
 
+def preprocess(np_image):
+    np_image = img_to_array(np_image)
+    np_image = np_image / 255.0
+    np_image = np.expand_dims(np_image, axis=0)
+    return np_image
+
 # Return a label to given image.
 def predict_image(np_image):
     global model_bottleneck
@@ -64,18 +72,18 @@ def predict_image(np_image):
     global class_dictionary
     global graph
     with graph.as_default():
+        np_image = preprocess(np_image)
         bottleneck_prediction = model_bottleneck.predict(np_image)
 
         # classification
         class_predicted = model_classifier.predict_classes(bottleneck_prediction)
         class_predicted_proba = model_classifier.predict_proba(bottleneck_prediction)
-
+        print class_predicted
         inID = class_predicted[0]
         inv_map = {v: k for k, v in class_dictionary.items()}
         label = inv_map[inID]
         print("Image ID: {}, Label: {}".format(inID, label))
-
-        return {"classname": label, "probability": class_predicted_proba}
+        return {"classname": label, "probability": str(class_predicted_proba[0][inID])}
 
 # Load model structure and its weights.
 def load_model(filename):
@@ -96,16 +104,15 @@ def get_label():
         if not key in post.keys():
             return jsonify({"error": "I think you've missed the key '" + key + "'"})
     image_np = np.array(json.loads(post["image"]))
-    print len(image_np)
     cv2.imwrite("tmp.jpg", image_np)
     np_image = load_img("tmp.jpg", target_size=(224, 224))
-    np_image = img_to_array(np_image)
-    np_image = np_image / 255.0
-    np_image = np.expand_dims(np_image, axis=0)
     actual_prediction = predict_image(np_image)
-    print actual_prediction
 
-    return jsonify({"label": actual_prediction["classname"], "probability": str(actual_prediction["probability"])})
+    response = {}
+    response["label"] = actual_prediction["classname"]
+    response["probability"] = str(actual_prediction["probability"])
+
+    return jsonify(response)
 
 if __name__ == '__main__':
     initialize()
