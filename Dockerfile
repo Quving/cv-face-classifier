@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 RUN printf "import keras\nkeras.applications.VGG16(include_top=False, weights='imagenet')" >> dl_vgg16.py
 RUN python dl_vgg16.py
 
-CMD ["python", "letsfaceit.py"]
+CMD ["bash", "-c", "start.sh"]
