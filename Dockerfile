@@ -9,8 +9,8 @@ COPY letsfaceit.py letsfaceit.py
 COPY start.sh start.sh
 
 RUN mkdir cnn
-RUN wget -O class_indices.zip http://nextcloud.quving.com/s/GkdP5QoaPJpEs2d/download && unzip class_indices.zip -d cnn
-RUN wget -O models.zip http://nextcloud.quving.com/s/ktXiwxgiAgxrA2L/download && unzip models.zip -d cnn
+RUN wget -O class_indices.zip http://nextcloud.quving.com/s/iL3xgnYGyCrw9zM/download && unzip class_indices.zip -d cnn
+RUN wget -O models.zip http://nextcloud.quving.com/s/cXAcZ26mPDfjzMe/download && unzip models.zip -d cnn
 
 RUN pip install -r requirements.txt
 
