@@ -114,6 +114,10 @@ def get_label():
 
     return jsonify(response)
 
+@app.route('/api/get/classes', methods=['GET'])
+def get_classes():
+    return jsonify(class_dictionary)
+
 if __name__ == '__main__':
     initialize()
     api = Api(app)
