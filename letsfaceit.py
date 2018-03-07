@@ -28,6 +28,7 @@ label_dictionary = None
 app = Flask(__name__)
 top_model_path = 'cnn/models/top_model'
 class_indices_path = 'cnn/class_indices/class_indices.npy'
+status = None
 
 # Initialize variables used for prediction.
 def initialize():
@@ -117,6 +118,24 @@ def get_label():
 @app.route('/api/get/classes', methods=['GET'])
 def get_classes():
     return jsonify(class_dictionary)
+
+@app.route('/api/model/train', methods=['POST'])
+def post_train():
+    training_proces = subprocess.Popen(["bash", "train_remote"])
+    return jsonify({'status': "Training initialized.", 'message': "Get status under /api/model/status"})
+
+@app.route('/api/model/status', methods=['GET'])
+def get_status():
+    code = training_process.poll()
+    if code == 0:
+        status = "Done!"
+    elif code == None
+        status = "Pending!"
+    else:
+        status = "Error!"
+
+    return jsonify({'status': status)
+
 
 if __name__ == '__main__':
     initialize()
