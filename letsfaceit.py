@@ -7,6 +7,7 @@ import math
 import time
 import json
 import pickle
+import subprocess
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -25,6 +26,7 @@ model_bottleneck = None
 model_classifier = None
 class_dictionary = None
 label_dictionary = None
+training_process = None
 app = Flask(__name__)
 top_model_path = 'cnn/models/top_model'
 class_indices_path = 'cnn/class_indices/class_indices.npy'
@@ -60,6 +62,7 @@ def getModelBottleneck():
     graph = tf.get_default_graph()
     return model
 
+# Convert a given raw np_image to CNN appropiate numpy array.
 def preprocess(np_image):
     np_image = img_to_array(np_image)
     np_image = np_image / 255.0
@@ -115,27 +118,34 @@ def get_label():
 
     return jsonify(response)
 
+# Return the class index dictionary as json.
 @app.route('/api/get/classes', methods=['GET'])
 def get_classes():
     return jsonify(class_dictionary)
 
-@app.route('/api/model/train', methods=['POST'])
+# Execute the command to train the classifier.
+@app.route('/api/model/command/train', methods=['POST'])
 def post_train():
-    training_proces = subprocess.Popen(["bash", "train_remote"])
-    return jsonify({'status': "Training initialized.", 'message': "Get status under /api/model/status"})
+    global training_process
+    if training_process == 0 or training_process is None:
+        # training_process = subprocess.Popen(["bash", "train_remote"])
+        training_process = subprocess.Popen(["sleep", "20"])
+        response = "Training initiated."
+    else:
+        response = "Process is still running. Wait."
+    return jsonify({'status': response, 'message': "Get status under /api/model/status"})
 
 @app.route('/api/model/status', methods=['GET'])
 def get_status():
     code = training_process.poll()
     if code == 0:
         status = "Done!"
-    elif code == None
+    elif code == None:
         status = "Pending!"
     else:
         status = "Error!"
 
-    return jsonify({'status': status)
-
+    return jsonify({'status': status})
 
 if __name__ == '__main__':
     initialize()
