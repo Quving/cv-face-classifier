@@ -22,7 +22,7 @@ cnn/bottleneck_features
 cnn/models
 cnn/class_indices
 cnn/training
-
+logfile
 **.jpg
 **.png
 **.zip
