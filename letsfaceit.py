@@ -136,6 +136,12 @@ def post_train():
         response = "Process is still running. Wait."
     return jsonify({'status': response, 'message': "Get status under /api/model/status"})
 
+# Execute the command to train the classifier.
+@app.route('/api/model/command/update', methods=['POST'])
+def update_model():
+    initialize()
+    return jsonify({'status': "Done", 'message': "Model updated."})
+
 @app.route('/api/model/status', methods=['GET'])
 def get_status():
     code = training_process.poll()
