@@ -129,7 +129,7 @@ def post_train():
     global training_process
     if training_process == 0 or training_process is None:
         # training_process = subprocess.Popen(["bash", "train_remote"])
-        training_process = subprocess.Popen(["sleep", "20"])
+        training_process = subprocess.Popen(["bash", "remote_training.sh"], shell=True)
         response = "Training initiated."
     else:
         response = "Process is still running. Wait."
