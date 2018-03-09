@@ -1,13 +1,25 @@
 #!/bin/bash
 
 if [[ "$UPDATE_WEIGHTS" -eq "1" ]]; then
-    echo "Download Model from nextcloud."
-    rm -rf cnn/class_indices cnn/models
-    wget -O class_indices.zip $NC_CLASS_INDICES_URL && \
-        unzip class_indices.zip -d cnn
-    wget -O models.zip $NC_MODEL_URL && \
-        unzip models.zip -d cnn
-    rm -f class_indices.zip models.zip
+    # Variables
+    NC_MODEL_TOKEN='cXAcZ26mPDfjzMe'
+    NC_TRAINING_TOKEN="PGLw5AP8sdiesYW"
+    NC_CLASS_INDICES_TOKEN='iL3xgnYGyCrw9zM'
+    NC_URL='http://nextcloud.quving.com'
+
+    rm -rf models training class_indices bottleneck_features
+
+    wget $NC_URL/index.php/s/$NC_MODEL_TOKEN/download && \
+        unzip download && \
+        rm download
+
+    wget $NC_URL/index.php/s/$NC_TRAINING_TOKEN/download && \
+        unzip download && \
+        rm download
+
+    wget $NC_URL/index.php/s/$NC_CLASS_INDICES_TOKEN/download && \
+        unzip download && \
+        rm download
 fi
 
 python2.7 letsfaceit.py
