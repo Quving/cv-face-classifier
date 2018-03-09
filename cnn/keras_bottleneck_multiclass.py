@@ -50,6 +50,12 @@ def save_model(model, filename):
      # Save weights
     model.save(filename + '.h5')
 
+# Create necessary folder.
+def initialize():
+    folders=["model", "bottleneck_features", "training", "class_indices"]
+    for folder in folders:
+        if not os.path.exists(folder):
+            os.makedirs(folder)
 
 # Extract the bottleneck features of the training and validation samples.
 def save_bottlebeck_features():
@@ -190,10 +196,10 @@ def create_top_model(shape, num_classes):
             loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-
-
 if __name__ == "__main__":
+    initialize()
     save_bottlebeck_features()
     train_top_model()
     # history = pickle.load( open(history_path,"rb"))
     # plot_loss(history)
+
