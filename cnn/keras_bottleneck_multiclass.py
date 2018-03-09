@@ -52,7 +52,7 @@ def save_model(model, filename):
 
 # Create necessary folder.
 def initialize():
-    folders=["model", "bottleneck_features", "training", "class_indices"]
+    folders=["models", "bottleneck_features", "training", "class_indices"]
     for folder in folders:
         if not os.path.exists(folder):
             os.makedirs(folder)
