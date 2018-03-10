@@ -133,8 +133,9 @@ def update_model():
 @app.route('/api/model/command/train', methods=['POST'])
 def post_train():
     global training_process
-    if training_process == 0 or training_process is None:
-        training_process = subprocess.Popen(["bash", "remote_training.sh"])
+    if training_process is None or training_process.poll() == 0 :
+        logfile = open('logfile', 'w')
+        training_process = subprocess.Popen(["bash", "remote_training.sh"], stdout=logfile, stderr=subprocess.STDOUT)
         response = "Training initiated."
     else:
         response = "Process is still running. Wait."
