@@ -124,23 +124,22 @@ def get_classes():
     return jsonify(class_dictionary)
 
 # Execute the command to train the classifier.
+@app.route('/api/model/command/update', methods=['POST'])
+def update_model():
+    initialize()
+    return jsonify({'status': "Done", 'message': "Model has been updated."})
+
+# Execute the command to train the classifier.
 @app.route('/api/model/command/train', methods=['POST'])
 def post_train():
     global training_process
-    if training_process is None or training_process.poll() == 0:
-        logfile= open("logfile", 'w')
-        # training_process = subprocess.Popen(["sleep", "10"])
-        training_process = subprocess.Popen(["bash", "remote_training.sh"], stdout=logfile, stderr=subprocess.STDOUT)
+    if training_process == 0 or training_process is None:
+        # training_process = subprocess.Popen(["bash", "train_remote"])
+        training_process = subprocess.Popen(["sleep", "20"])
         response = "Training initiated."
     else:
         response = "Process is still running. Wait."
     return jsonify({'status': response, 'message': "Get status under /api/model/status"})
-
-# Execute the command to train the classifier.
-@app.route('/api/model/command/update', methods=['POST'])
-def update_model():
-    initialize()
-    return jsonify({'status': "Done", 'message': "Model updated."})
 
 @app.route('/api/model/status', methods=['GET'])
 def get_status():
