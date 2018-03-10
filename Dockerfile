@@ -7,6 +7,7 @@ WORKDIR /workdir
 COPY requirements.txt requirements.txt
 COPY letsfaceit.py letsfaceit.py
 COPY start.sh start.sh
+COPY remote_training.sh remote_training.sh
 
 RUN mkdir -p cnn
 
