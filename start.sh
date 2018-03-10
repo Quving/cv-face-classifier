@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 if [[ "$UPDATE_WEIGHTS" -eq "1" ]]; then
     # Variables
     NC_MODEL_TOKEN='cXAcZ26mPDfjzMe'
