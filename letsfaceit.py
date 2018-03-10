@@ -119,7 +119,7 @@ def get_label():
     return jsonify(response)
 
 # Return the class index dictionary as json.
-@app.route('/api/get/classes', methods=['GET'])
+@app.route('/api/model/get/classes', methods=['GET'])
 def get_classes():
     return jsonify(class_dictionary)
 
@@ -134,12 +134,11 @@ def update_model():
 def post_train():
     global training_process
     if training_process == 0 or training_process is None:
-        # training_process = subprocess.Popen(["bash", "train_remote"])
-        training_process = subprocess.Popen(["sleep", "20"])
+        training_process = subprocess.Popen(["bash", "remote_training.sh"])
         response = "Training initiated."
     else:
         response = "Process is still running. Wait."
-    return jsonify({'status': response, 'message': "Get status under /api/model/status"})
+    return jsonify({'status': response, 'message': "Get status under /api/model/get/status"})
 
 @app.route('/api/model/status', methods=['GET'])
 def get_status():
